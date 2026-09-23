@@ -1,0 +1,992 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Noma — Garde une trace des moments qui comptent</title>
+    <meta name="description"
+        content="Noma est un journal quotidien simple et privé pour garder une trace des moments qui comptent, jour après jour." />
+    <meta name="theme-color" content="#F6F1E8" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Noma — Garde une trace des moments qui comptent" />
+    <meta property="og:description"
+        content="Un journal quotidien simple et privé pour noter ce que tu veux retenir de tes journées." />
+    <meta property="og:url" content="https://les-pianistes.github.io/noma/marketing" />
+
+    <style>
+        :root {
+            --bg: #f6f1e8;
+            --surface: rgba(255, 255, 255, .72);
+            --surface-solid: #fffdf9;
+            --ink: #25221f;
+            --muted: #756f68;
+            --line: rgba(37, 34, 31, .10);
+            --accent: #d8be93;
+            --accent-strong: #b9925c;
+            --accent-soft: #eee0ca;
+            --green: #8ea184;
+            --rose: #c9998f;
+            --shadow: 0 20px 60px rgba(74, 58, 37, .10);
+            --radius-xl: 32px;
+            --radius-lg: 24px;
+            --radius-md: 18px;
+            --max: 1180px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at 8% 8%, rgba(216, 190, 147, .34), transparent 27rem),
+                radial-gradient(circle at 92% 38%, rgba(201, 153, 143, .18), transparent 28rem),
+                var(--bg);
+            font-family:
+                Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .container {
+            width: min(calc(100% - 40px), var(--max));
+            margin: 0 auto;
+        }
+
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            padding: 18px 0;
+            backdrop-filter: blur(18px);
+            background: linear-gradient(to bottom, rgba(246, 241, 232, .92), rgba(246, 241, 232, .68));
+            border-bottom: 1px solid rgba(37, 34, 31, .05);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 11px;
+            font-weight: 780;
+            letter-spacing: -.03em;
+            font-size: 20px;
+        }
+
+        .brand-mark {
+            width: 38px;
+            height: 38px;
+            border-radius: 13px;
+            display: grid;
+            place-items: center;
+            background: var(--ink);
+            color: #fffaf3;
+            box-shadow: 0 8px 24px rgba(37, 34, 31, .16);
+            font-family: Georgia, serif;
+            font-size: 23px;
+            font-style: italic;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 26px;
+            color: var(--muted);
+            font-size: 14px;
+            font-weight: 620;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink);
+        }
+
+        .hero {
+            padding: 80px 0 72px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.02fr) minmax(360px, .98fr);
+            gap: 72px;
+            align-items: center;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 12px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .58);
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 680;
+        }
+
+        .eyebrow-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 0 5px rgba(142, 161, 132, .13);
+        }
+
+        h1 {
+            max-width: 760px;
+            margin: 24px 0 22px;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(54px, 7.2vw, 94px);
+            line-height: .96;
+            letter-spacing: -.055em;
+            font-weight: 500;
+        }
+
+        .hero-copy {
+            max-width: 650px;
+            margin: 0;
+            color: var(--muted);
+            font-size: clamp(18px, 2vw, 21px);
+            line-height: 1.65;
+        }
+
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 34px;
+        }
+
+        .btn {
+            min-height: 52px;
+            padding: 0 19px;
+            border-radius: 16px;
+            border: 1px solid var(--line);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: 740;
+            font-size: 14px;
+            transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: var(--ink);
+            color: #fffaf3;
+            box-shadow: 0 12px 28px rgba(37, 34, 31, .18);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, .62);
+            color: var(--ink);
+        }
+
+        .small-note {
+            margin-top: 14px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .phone-wrap {
+            position: relative;
+            display: grid;
+            place-items: center;
+            min-height: 650px;
+        }
+
+        .orb {
+            position: absolute;
+            width: 430px;
+            height: 430px;
+            border-radius: 50%;
+            background: linear-gradient(140deg, var(--accent-soft), rgba(255, 255, 255, .5));
+            filter: blur(.1px);
+            box-shadow: inset 0 0 0 1px rgba(37, 34, 31, .04);
+        }
+
+        .phone {
+            position: relative;
+            z-index: 1;
+            width: 318px;
+            padding: 12px;
+            border-radius: 43px;
+            background: #25221f;
+            box-shadow: 0 35px 80px rgba(56, 42, 27, .26);
+            transform: rotate(2.5deg);
+        }
+
+        .phone-screen {
+            min-height: 620px;
+            overflow: hidden;
+            border-radius: 33px;
+            background:
+                radial-gradient(circle at 50% 0%, rgba(216, 190, 147, .29), transparent 17rem),
+                #fbf8f2;
+            padding: 28px 20px 22px;
+        }
+
+        .phone-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+
+        .phone-kicker {
+            color: var(--muted);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+            font-weight: 750;
+        }
+
+        .phone-title {
+            margin-top: 4px;
+            font-family: Georgia, serif;
+            font-size: 30px;
+            letter-spacing: -.04em;
+        }
+
+        .avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: grid;
+            place-items: center;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .week {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-bottom: 24px;
+        }
+
+        .day {
+            min-width: 0;
+            padding: 8px 2px;
+            border-radius: 14px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 10px;
+        }
+
+        .day strong {
+            display: block;
+            margin-top: 3px;
+            color: var(--ink);
+            font-size: 13px;
+        }
+
+        .day.active {
+            background: var(--ink);
+            color: rgba(255, 255, 255, .7);
+        }
+
+        .day.active strong {
+            color: #fff;
+        }
+
+        .moment {
+            margin-top: 12px;
+            padding: 17px;
+            border: 1px solid rgba(37, 34, 31, .07);
+            border-radius: 21px;
+            background: rgba(255, 255, 255, .78);
+            box-shadow: 0 10px 30px rgba(37, 34, 31, .045);
+        }
+
+        .moment-time {
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .moment p {
+            margin: 8px 0 0;
+            font-family: Georgia, serif;
+            font-size: 18px;
+            line-height: 1.42;
+            letter-spacing: -.015em;
+        }
+
+        .phone-add {
+            margin: 18px auto 0;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: var(--ink);
+            color: #fff;
+            font-size: 26px;
+            box-shadow: 0 10px 24px rgba(37, 34, 31, .22);
+        }
+
+        .floating-card {
+            position: absolute;
+            z-index: 2;
+            right: 0;
+            bottom: 90px;
+            width: 190px;
+            padding: 16px;
+            border: 1px solid rgba(37, 34, 31, .08);
+            border-radius: 20px;
+            background: rgba(255, 253, 249, .91);
+            backdrop-filter: blur(16px);
+            box-shadow: var(--shadow);
+            transform: rotate(-3deg);
+        }
+
+        .floating-card strong {
+            display: block;
+            font-family: Georgia, serif;
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        .floating-card span {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .section {
+            padding: 88px 0;
+        }
+
+        .section-head {
+            max-width: 720px;
+            margin-bottom: 38px;
+        }
+
+        .section-label {
+            color: var(--accent-strong);
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+        }
+
+        h2 {
+            margin: 12px 0 0;
+            font-family: Georgia, serif;
+            font-size: clamp(39px, 5vw, 62px);
+            line-height: 1.03;
+            letter-spacing: -.04em;
+            font-weight: 500;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .feature {
+            min-height: 280px;
+            padding: 28px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-lg);
+            background: rgba(255, 255, 255, .52);
+            box-shadow: 0 14px 34px rgba(74, 58, 37, .05);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 70px;
+            background: var(--accent-soft);
+            font-size: 20px;
+        }
+
+        .feature:nth-child(2) .feature-icon {
+            background: rgba(142, 161, 132, .18);
+        }
+
+        .feature:nth-child(3) .feature-icon {
+            background: rgba(201, 153, 143, .18);
+        }
+
+        .feature h3 {
+            margin: 0 0 9px;
+            font-size: 19px;
+            letter-spacing: -.025em;
+        }
+
+        .feature p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.58;
+            font-size: 14px;
+        }
+
+        .privacy-card {
+            display: grid;
+            grid-template-columns: 1fr .9fr;
+            gap: 36px;
+            align-items: center;
+            padding: 46px;
+            border-radius: var(--radius-xl);
+            color: #fffaf3;
+            background:
+                radial-gradient(circle at 100% 0%, rgba(216, 190, 147, .35), transparent 23rem),
+                var(--ink);
+            box-shadow: 0 22px 70px rgba(37, 34, 31, .17);
+        }
+
+        .privacy-card h2 {
+            margin-top: 0;
+            color: #fffaf3;
+        }
+
+        .privacy-card p {
+            color: rgba(255, 250, 243, .69);
+            font-size: 16px;
+            line-height: 1.65;
+        }
+
+        .privacy-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .privacy-item {
+            display: flex;
+            gap: 13px;
+            align-items: flex-start;
+            padding: 15px 16px;
+            border-radius: 17px;
+            background: rgba(255, 255, 255, .07);
+            border: 1px solid rgba(255, 255, 255, .08);
+            font-size: 14px;
+            line-height: 1.45;
+        }
+
+        .check {
+            flex: 0 0 auto;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgba(216, 190, 147, .22);
+            display: grid;
+            place-items: center;
+            color: #f1d8ae;
+            font-size: 12px;
+        }
+
+        .plus {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .plan {
+            padding: 34px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, .52);
+        }
+
+        .plan.featured {
+            background: var(--surface-solid);
+            box-shadow: var(--shadow);
+        }
+
+        .plan-name {
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .plan h3 {
+            margin: 12px 0 12px;
+            font-family: Georgia, serif;
+            font-size: 33px;
+            font-weight: 500;
+            letter-spacing: -.035em;
+        }
+
+        .plan p {
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .plan ul {
+            list-style: none;
+            padding: 0;
+            margin: 24px 0 0;
+            display: grid;
+            gap: 12px;
+        }
+
+        .plan li {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .plan li::before {
+            content: "✓";
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            flex: 0 0 auto;
+            background: var(--accent-soft);
+            color: #7f653f;
+            font-size: 11px;
+            font-weight: 900;
+        }
+
+        .final-cta {
+            padding-bottom: 100px;
+        }
+
+        .final-card {
+            padding: 72px 36px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-xl);
+            background:
+                radial-gradient(circle at 15% 20%, rgba(216, 190, 147, .28), transparent 18rem),
+                rgba(255, 255, 255, .66);
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .final-card h2 {
+            max-width: 780px;
+            margin: 0 auto;
+        }
+
+        .final-card p {
+            max-width: 570px;
+            margin: 20px auto 0;
+            color: var(--muted);
+            line-height: 1.65;
+            font-size: 16px;
+        }
+
+        .final-card .cta-row {
+            justify-content: center;
+        }
+
+        footer {
+            padding: 28px 0 34px;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+        }
+
+        .footer-links a:hover {
+            color: var(--ink);
+        }
+
+        @media (max-width: 930px) {
+            .hero {
+                padding-top: 56px;
+            }
+
+            .hero-grid,
+            .privacy-card {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-grid {
+                gap: 36px;
+            }
+
+            .phone-wrap {
+                min-height: 620px;
+            }
+
+            .floating-card {
+                right: 7%;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .feature {
+                min-height: 0;
+            }
+
+            .feature-icon {
+                margin-bottom: 34px;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .container {
+                width: min(calc(100% - 28px), var(--max));
+            }
+
+            .nav {
+                padding: 14px 0;
+            }
+
+            .nav-links a:not(.keep-mobile) {
+                display: none;
+            }
+
+            .hero {
+                padding: 42px 0 36px;
+            }
+
+            h1 {
+                font-size: clamp(48px, 15vw, 68px);
+            }
+
+            .hero-copy {
+                font-size: 17px;
+            }
+
+            .phone-wrap {
+                min-height: 565px;
+                overflow: hidden;
+            }
+
+            .orb {
+                width: 340px;
+                height: 340px;
+            }
+
+            .phone {
+                width: 286px;
+                transform: rotate(1.2deg);
+            }
+
+            .phone-screen {
+                min-height: 550px;
+            }
+
+            .floating-card {
+                display: none;
+            }
+
+            .section {
+                padding: 66px 0;
+            }
+
+            .privacy-card {
+                padding: 30px 24px;
+                border-radius: 26px;
+            }
+
+            .plus {
+                grid-template-columns: 1fr;
+            }
+
+            .plan {
+                padding: 26px 22px;
+            }
+
+            .final-card {
+                padding: 52px 22px;
+                border-radius: 26px;
+            }
+
+            .footer-inner {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="nav">
+        <div class="container nav-inner">
+            <a class="brand" href="#top" aria-label="Noma, accueil">
+                <span class="brand-mark">N</span>
+                <span>Noma</span>
+            </a>
+
+            <nav class="nav-links" aria-label="Navigation principale">
+                <a href="#fonctionnalites">Fonctionnalités</a>
+                <a href="#confidentialite">Confidentialité</a>
+                <a href="#plus">Noma Plus</a>
+                <a class="keep-mobile" href="#telecharger">Télécharger</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="top">
+        <section class="hero">
+            <div class="container hero-grid">
+                <div>
+                    <div class="eyebrow">
+                        <span class="eyebrow-dot"></span>
+                        Ton journal, sans pression
+                    </div>
+
+                    <h1>Garde une trace des moments qui comptent.</h1>
+
+                    <p class="hero-copy">
+                        Noma est un journal quotidien simple pour noter ce que tu as vécu,
+                        ressenti ou simplement envie de retenir. Quelques lignes suffisent
+                        pour retrouver plus tard les petits moments de ta vie.
+                    </p>
+
+                    <div class="cta-row" id="telecharger">
+                        <span class="btn btn-primary" aria-disabled="true"> &nbsp;App Store</span>
+                        <span class="btn btn-secondary" aria-disabled="true">▶ &nbsp;Google Play</span>
+                    </div>
+
+                    <div class="small-note">Disponible prochainement sur iOS et Android.</div>
+                </div>
+
+                <div class="phone-wrap" aria-label="Aperçu de l'application Noma">
+                    <div class="orb"></div>
+
+                    <div class="phone">
+                        <div class="phone-screen">
+                            <div class="phone-top">
+                                <div>
+                                    <div class="phone-kicker">Aujourd'hui</div>
+                                    <div class="phone-title">Mercredi 23</div>
+                                </div>
+                                <div class="avatar">M</div>
+                            </div>
+
+                            <div class="week" aria-hidden="true">
+                                <div class="day">Lun<strong>21</strong></div>
+                                <div class="day">Mar<strong>22</strong></div>
+                                <div class="day active">Mer<strong>23</strong></div>
+                                <div class="day">Jeu<strong>24</strong></div>
+                                <div class="day">Ven<strong>25</strong></div>
+                                <div class="day">Sam<strong>26</strong></div>
+                                <div class="day">Dim<strong>27</strong></div>
+                            </div>
+
+                            <div class="moment">
+                                <div class="moment-time">09:42</div>
+                                <p>Un café au soleil avant de commencer la journée.</p>
+                            </div>
+
+                            <div class="moment">
+                                <div class="moment-time">18:17</div>
+                                <p>J'ai enfin terminé ce que je repoussais depuis plusieurs jours.</p>
+                            </div>
+
+                            <div class="moment">
+                                <div class="moment-time">22:05</div>
+                                <p>Dîner tranquille. Rien d'exceptionnel, mais une bonne journée.</p>
+                            </div>
+
+                            <div class="phone-add">+</div>
+                        </div>
+                    </div>
+
+                    <div class="floating-card">
+                        <strong>Quelques mots suffisent.</strong>
+                        <span>Pas de page blanche à remplir, pas d'objectif quotidien imposé.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="fonctionnalites">
+            <div class="container">
+                <div class="section-head">
+                    <div class="section-label">Pensé pour durer</div>
+                    <h2>Un journal que tu peux vraiment garder au quotidien.</h2>
+                </div>
+
+                <div class="features">
+                    <article class="feature">
+                        <div class="feature-icon">✎</div>
+                        <h3>Simple à écrire</h3>
+                        <p>
+                            Ajoute un moment en quelques secondes, modifie-le si besoin et
+                            reviens facilement sur les jours précédents.
+                        </p>
+                    </article>
+
+                    <article class="feature">
+                        <div class="feature-icon">◌</div>
+                        <h3>À ton rythme</h3>
+                        <p>
+                            Noma ne te demande pas d'écrire un roman. Une phrase, une pensée
+                            ou quelques lignes peuvent suffire à garder un souvenir.
+                        </p>
+                    </article>
+
+                    <article class="feature">
+                        <div class="feature-icon">⌁</div>
+                        <h3>Retrouve tes journées</h3>
+                        <p>
+                            Navigue naturellement dans le temps et retrouve les moments que
+                            tu avais presque oubliés.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="confidentialite">
+            <div class="container">
+                <div class="privacy-card">
+                    <div>
+                        <h2>Ce que tu écris reste personnel.</h2>
+                        <p>
+                            Noma est conçu autour d'un principe simple : ton journal n'est pas
+                            un réseau social. Son contenu n'est pas là pour être publié,
+                            comparé ou mis en scène.
+                        </p>
+                    </div>
+
+                    <div class="privacy-list">
+                        <div class="privacy-item">
+                            <div class="check">✓</div>
+                            <div>Le contenu de ton journal reste privé.</div>
+                        </div>
+                        <div class="privacy-item">
+                            <div class="check">✓</div>
+                            <div>Pas de likes, de followers ou de pression sociale.</div>
+                        </div>
+                        <div class="privacy-item">
+                            <div class="check">✓</div>
+                            <div>Tu peux supprimer ton compte depuis l'application.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="plus">
+            <div class="container">
+                <div class="section-head">
+                    <div class="section-label">Noma Plus</div>
+                    <h2>Commence gratuitement. Va plus loin si tu en as besoin.</h2>
+                </div>
+
+                <div class="plus">
+                    <article class="plan">
+                        <div class="plan-name">Noma</div>
+                        <h3>L'essentiel, gratuitement.</h3>
+                        <p>
+                            Tout ce qu'il faut pour commencer à prendre l'habitude de noter
+                            les moments de tes journées.
+                        </p>
+                        <ul>
+                            <li>Jusqu'à 3 moments par jour</li>
+                            <li>Jusqu'à 500 caractères par moment</li>
+                            <li>Navigation dans ton journal</li>
+                            <li>Rappel quotidien optionnel</li>
+                        </ul>
+                    </article>
+
+                    <article class="plan featured">
+                        <div class="plan-name">Noma Plus</div>
+                        <h3>Plus d'espace pour écrire.</h3>
+                        <p>
+                            Pour celles et ceux qui veulent aller au-delà de quelques lignes
+                            et utiliser Noma comme un véritable journal personnel.
+                        </p>
+                        <ul>
+                            <li>Jusqu'à 10&nbsp;000 caractères par moment</li>
+                            <li>Une expérience pensée pour écrire davantage</li>
+                            <li>Abonnement mensuel ou annuel</li>
+                            <li>Essai gratuit disponible sur l'offre annuelle</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="final-cta">
+            <div class="container">
+                <div class="final-card">
+                    <h2>Ce soir, note juste une chose que tu ne veux pas oublier.</h2>
+                    <p>
+                        Pas besoin d'écrire beaucoup. Noma est là pour transformer quelques
+                        mots en une trace que tu seras content de retrouver plus tard.
+                    </p>
+
+                    <div class="cta-row">
+                        <span class="btn btn-primary" aria-disabled="true"> &nbsp;App Store</span>
+                        <span class="btn btn-secondary" aria-disabled="true">▶ &nbsp;Google Play</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-inner">
+            <div>© <span id="year"></span> Noma</div>
+
+            <div class="footer-links">
+                <!--
+          Remplace ces chemins si tes pages légales utilisent d'autres URLs.
+        -->
+                <a href="../privacy">Confidentialité</a>
+                <a href="../terms">Conditions d'utilisation</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>
